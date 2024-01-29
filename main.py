@@ -8,6 +8,7 @@
 import numpy as np
 import skimage as sk
 import skimage.io as skio
+import skimage.transform as skt
 import multiprocessing
 
 # nom du fichier d'image
@@ -27,6 +28,9 @@ b = im[:height]
 g = im[height: 2 * height]
 r = im[2 * height: 3 * height]
 
+# Specify the number of pixels to crop from each side
+crop_pixels = 250
+
 # aligner les images... c'est ici que vous commencez à coder!
 # ces quelques fonctions pourraient vous être utiles:
 # np.roll, np.sum, sk.transform.rescale (for multiscale)
@@ -36,23 +40,32 @@ def align(image_to_align, reference_image, max_shift=15):
     """
     best_score = np.inf
     best_shift = (0, 0)
-
+    im_to_al_cropped = image_to_align[crop_pixels:-crop_pixels, crop_pixels:-crop_pixels]
+    ref_cropped = reference_image[crop_pixels:-crop_pixels, crop_pixels:-crop_pixels]
+    """
+    skio.imshow(im_to_al_cropped)
+    skio.show()
+    skio.imshow(image_to_align)
+    skio.show()
+    """
     for dx in range(-max_shift, max_shift + 1):
         for dy in range(-max_shift, max_shift + 1):
-            shifted_image = np.roll(image_to_align, (dy, dx), axis=(0, 1))
-            score = np.sum((shifted_image - reference_image) ** 2)
-            print(f"Current:{dx} {dy}")
+            shifted_image = np.roll(im_to_al_cropped, (dy, dx), axis=(0, 1))
+            score = np.sum((shifted_image - ref_cropped) ** 2)
+            print(f"Current {cur}:{dx} {dy}")
             if score < best_score:
                 best_score = score
                 best_shift = (dy, dx)
-                print(f"new best: {dy} {dx}")
+                print(f"---> New best {cur}: {dy} {dx}")
 
     return np.roll(image_to_align, best_shift, axis=(0, 1))
 
-print("1")
+cur = 1
 ag = align(g, b)
-print("2")
+
+cur = 2
 ar = align(r, b)
+
 # créer l'image couleur
 im_out = np.dstack([ar, ag, b])
 

@@ -10,7 +10,6 @@ import skimage as sk
 import skimage.io as skio
 import skimage.transform as skt
 import matplotlib.pyplot as plt
-import multiprocessing
 
 # nom du fichier d'image
 imname = 'images/01047u.tif'
@@ -85,7 +84,7 @@ im_out = np.dstack([ar, ag, b])
 img_RGB_ubyte = sk.util.img_as_ubyte(im_out)
 
 # sauvegarder l'image
-fname = 'res2.jpg'
+fname = 'image_high_res/01047u_res.jpg'
 skio.imsave(fname, img_RGB_ubyte)
 
 # afficher l'image

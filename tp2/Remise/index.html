@@ -1,0 +1,182 @@
+<head>
+<title>TP1: Coloration de l'Empire Russe</title>
+<!-- Ceci est un commentaire -->
+<!-- La ligne ci-dessous vous permettra d'écrire votre texte avec des accents français -->
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+</head>
+<body>
+  <h1>TP1: Coloration de l'Empire Russe</h1>
+  <h2>Approche à une seule échelle</h2>
+  <p>Afin d'obtenir des images en couleurs à partir de la banque d'image de Prokudin-Gorskii il a fallu développer un algorithme </p>
+  </p>d'alighement. Par la suite, il suffisait d'évaluer à partir d'un score si l'alignement était bon dans une plage de "vérification". </p>
+  </p>Celle-ci était d'une taille de 15x15 pixel dans les deux axes. Voici les résultats obtenues avec les images jpeg de plus petite taille.</p>
+
+  <p>Image 00106v</p>
+  <img src="https://github.com/TonyDall/Photo_Algo/blob/main/image_low_res/00106v_res.jpg?raw=true" alt="Image 1">
+
+  <p>Image 00757v</p>
+  <img src="https://github.com/TonyDall/Photo_Algo/blob/main/image_low_res/00757v_res.jpg?raw=true" alt="Image 2">
+
+  <p>Image 00889v</p>
+  <img src="https://github.com/TonyDall/Photo_Algo/blob/main/image_low_res/00889v_res.jpg?raw=true" alt="Image 3">
+
+  <p>Image 00907v</p>
+  <img src="https://github.com/TonyDall/Photo_Algo/blob/main/image_low_res/00907v_res.jpg?raw=true" alt="Image 4">
+
+  <p>Image 00911v</p>
+  <img src="https://github.com/TonyDall/Photo_Algo/blob/main/image_low_res/00911v_res.jpg?raw=true" alt="Image 5">
+
+  <p>Image 01657v</p>
+  <img src="https://github.com/TonyDall/Photo_Algo/blob/main/image_low_res/01657v_res.jpg?raw=true" alt="Image 6">
+
+  <p> </p>
+    <table border="1">
+  <tr>
+    <td> Image JPG
+    <td> Green on Blue
+    <td> Red on Blue
+  <tr>
+  </tr>
+    <td> 00106v
+    <td> (1, 4)
+    <td> (-1,9)
+  <tr>
+  </tr>
+    <td> 00757v
+    <td> (3, 2)
+    <td> (5, 5)
+  <tr>
+  </tr>
+    <td> 00889v
+    <td> (2, 2)
+    <td> (3, 4)
+  <tr>
+  </tr>
+    <td> 00907v
+    <td> (0, 2)
+    <td> (0, 6)
+  <tr>
+  </tr>
+    <td> 00911v
+    <td> (-1, 1)
+    <td> (-1, 13)
+  <tr>
+  </tr>
+    <td> 01657v
+    <td> (1, 5)
+    <td> (1, 12)
+  <tr>
+  </tr>
+  </table>
+
+  <h2>Approche à échelles multiples</h2>
+  <p>Avec cette approche, il devenait possible de traiter des images de plus grande taille sans devoir augmenté significativement le temps<p>
+  <p>d'exécution pour obtenir un résultat satisfaisant. Ainsi, cette approche consistait à prendre l'image original et la réduire par deux<p>
+  <p>la taille de l'image. Tout d'abord, on commencait le traitement sur la plus petite taille d'image et on grossissait à chaque itération<p>
+  <p>de la fonction align tout en s'assurant d'effectuer la recherche à partir du point précédemment découvert avec l'image de plus petite<p>
+  <p>dimension. De plus, il fallait s'assurer de toujours multiplier par deux la position découvert à l'itération précédente de la fonction<p>
+  <p>align et repartir de là. Au total, il était conseillé de seulement faire 3 itérations (taille initial de recherche = 1/8).</p>
+  <p>Voici les résultats obtenus avec les différentes images fournies:</p>
+
+
+  <p>Image 00029u</p>
+  <img src="https://github.com/TonyDall/Photo_Algo/blob/main/image_high_res/00029u_res.jpg?raw=true" alt="Image 1" width="1000" height="1000">
+
+  <p>Image 00087u</p>
+  <img src="https://github.com/TonyDall/Photo_Algo/blob/main/image_high_res/00087u_res.jpg?raw=true" alt="Image 2" width="1000" height="1000">
+
+  <p>Image 00458u</p>
+  <img src="https://github.com/TonyDall/Photo_Algo/blob/main/image_high_res/00458u_res.jpg?raw=true" alt="Image 3" width="1000" height="1000">
+
+  <p>Image 0082u</p>
+  <img src="https://github.com/TonyDall/Photo_Algo/blob/main/image_high_res/00822u_res.jpg?raw=true" alt="Image 4" width="1000" height="1000">
+
+  <p>Image 01043u</p>
+  <img src="https://github.com/TonyDall/Photo_Algo/blob/main/image_high_res/01043u_res.jpg?raw=true" alt="Image 5" width="1000" height="1000">
+
+  <p>Image 01047u</p>
+  <img src="https://github.com/TonyDall/Photo_Algo/blob/main/image_high_res/01047u_res.jpg?raw=true" alt="Image 6" width="1000" height="1000">
+  <p>Il est intéressant de remarquer que cette image semblait être la plus clair parmis tout ceux traité. Ceci peut probablement s'expliquer<p>
+  <p>par le fait qu'elle est la seule où il semblait facile pour Prokudin-Gorskii d'avoir un environnement stable et immobile!</p>
+
+  <table border="1">
+  <tr>
+    <td> Image TIF
+    <td> Green on Blue
+    <td> Red on Blue
+  <tr>
+  </tr>
+    <td> 00029u
+    <td> (16 38)
+    <td> (32,90)
+  <tr>
+  </tr>
+    <td> 00087u
+    <td> (38, 48)
+    <td> (56, 108)
+  <tr>
+  </tr>
+    <td> 00458u
+    <td> (4, 42)
+    <td> (32, 88)
+  <tr>
+  </tr>
+    <td> 00822u
+    <td> (24, 58)
+    <td> (32, 126)
+  <tr>
+  </tr>
+    <td> 01043u
+    <td> (10, -16)
+    <td> (16, 10)
+  <tr>
+  </tr>
+    <td> 01047u
+    <td> (20, 24)
+    <td> (34, 72)
+  <tr>
+  </tr>
+  </table>
+
+  <h3>Photos Prokudin-Gorskii additionnelles</h3>
+  <p>Dans cette sous section où il fallait utilisé des images différentes de Prokudin-Gorskii on remarque que 2 d'entre elles n'ont pas <p>
+  <p>un rendu de qualité comme il fut le cas avec les autres image TIF fournie pour ce TP. Enfaite, ce résultat fut obtenue en ne changeant<p>
+  <p>pas le nombre de pixels couvert par la fonction align. Pour se faire, il a fallut mettre 25 pixels plutôt que 15 (qui était par défaut).</p>
+  <p>Image 00202u</p>
+  <img src="https://github.com/TonyDall/Photo_Algo/blob/main/image_high_res/00202u_res.jpg?raw=true" alt="Image 6" width="500" height="500">
+
+  <p>Image 00200u avec 15px d'alignement</p>
+  <img src="https://github.com/TonyDall/Photo_Algo/blob/main/image_high_res/00200u_res.jpg?raw=true" alt="Image 6" width="500" height="500">
+
+  <p>Image 00200u avec 25px d'alignement</p>
+  <img src="https://github.com/TonyDall/Photo_Algo/blob/main/image_high_res/00200u_res_25.jpg?raw=true" alt="Image 6" width="500" height="500">
+
+  <p>Image 00201u avec 15px d'alignement</p>
+  <img src="https://github.com/TonyDall/Photo_Algo/blob/main/image_high_res/00201u_res.jpg?raw=true" alt="Image 6" width="500" height="500">
+
+  <p>Image 00201u avec 15px d'alignement</p>
+  <img src="https://github.com/TonyDall/Photo_Algo/blob/main/image_high_res/00201u_res_25.jpg?raw=true" alt="Image 6" width="500" height="500">
+
+  <h2>Mettez-vous dans la peau de Prokudin-Gorskii</h2>
+  <p>Dans cette section un iphone 11 a été utilisé afin de prendre 3 photos tout en étant immobile de mon bureau. Une fois les photos <br></p>
+  <p>prises il a fallu les importés dans pycharm et leur appliqué individuellement un filtre différent afin d'obtenir seulement <p>
+  <p>le vert pour la première image, le rouge sur la seconde et le bleu sur la dernière. Finalement, il suffisait de simplement</p>
+  <p>reprendre le code utilisé pour la section précédente avec les nouveaux canaux de couleurs provenant de différents images pris par moi.</p>
+  <p>Voici le résultat obtenue:</p>
+
+  <p>Image prise no.1</p>
+  <img src="https://github.com/TonyDall/Photo_Algo/blob/main/personal%20image/IMG_3780.jpg?raw=true" alt="Image 6" width="1000" height="1000">
+
+  <p>Image prise no.2</p>
+  <img src="https://github.com/TonyDall/Photo_Algo/blob/main/personal%20image/IMG_3781.jpg?raw=true" alt="Image 6" width="1000" height="1000">
+
+  <p>Image prise no.3</p>
+  <img src="https://github.com/TonyDall/Photo_Algo/blob/main/personal%20image/IMG_3782.jpg?raw=true" alt="Image 6" width="1000" height="1000">
+
+  <p>Image obtenue après traitement</p>
+  <img src="https://github.com/TonyDall/Photo_Algo/blob/main/personal%20image/groot.jpg?raw=true" alt="Image 6" width="1000" height="1000">
+
+
+  <p>Anthony Dallaire <br> Université Laval<br>31 Janvier 2024</p>
+
+</body>

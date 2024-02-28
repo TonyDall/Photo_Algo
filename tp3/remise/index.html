@@ -1,0 +1,216 @@
+<head>
+<title>TP2: On s'amuse en fréquences</title>
+<!-- Ceci est un commentaire -->
+<!-- La ligne ci-dessous vous permettra d'écrire votre texte avec des accents français -->
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+</head>
+<body>
+  <h1>TP2: On s'amuse en fréquences</h1>
+  <h2>Partie 0: Réchauffement</h2>
+  <p>Dans cette première partie il fallait simplement accentué deux images de notre choix. La technique reste relativement
+  simple. Elle consiste à prendre une image et de lui appliquer un filtre gaussien passe-haut pour ensuite venir soustraire à
+  l'image original le filtre pour obtenir les "détails". Une fois ces détails obtenues on venait y mettre un facteur modulable
+  et on y additionnait l'image d'origine pour enfin obtenir l'image accentuée!</p>
+
+  <p>Image Original "Drake"</p>
+  <img src="https://github.com/TonyDall/Photo_Algo/blob/main/tp2/Partie_0/Drake.jpg?raw=true" alt="Image 1">
+
+  <p>Drake avec filtre gaussien</p>
+  <img src="https://github.com/TonyDall/Photo_Algo/blob/main/tp2/Partie_0/filtree_2.jpg?raw=true" alt="Image 2">
+
+  <p>Détail de Drake</p>
+  <img src="https://github.com/TonyDall/Photo_Algo/blob/main/tp2/Partie_0/detail_2.jpg?raw=true" alt="Image 3">
+
+  <p>Drake accentuée</p>
+  <img src="https://github.com/TonyDall/Photo_Algo/blob/main/tp2/Partie_0/accentuee_2.jpg?raw=true" alt="Image 4">
+
+  <p>Dans cette suite d'image de drake il est intéressant de remarquer que l'image d'origine a un du grain (bruit). Ainsi, lorsqu'on applique
+  le filtre gaussien on se retrouve à diminuer leurs présences. Par conséquent, lorsqu'on récupère les détails et qu'on y accentue l'image original
+  ce bruit se retrouve beaucoup plus conséquent visuellement.</p>
+
+  <p>Aigle ou pygargue à tête blanche?</p>
+  <img src="https://github.com/TonyDall/Photo_Algo/blob/main/tp2/Partie_0/eagle.jpg?raw=true" alt="Image 5">
+
+  <p>Aigle avec filtre gaussien</p>
+  <img src="https://github.com/TonyDall/Photo_Algo/blob/main/tp2/Partie_0/filtree_1.jpg?raw=true" alt="Image 6">
+
+   <p>Détail de l'aigle</p>
+  <img src="https://github.com/TonyDall/Photo_Algo/blob/main/tp2/Partie_0/detail_1.jpg?raw=true" alt="Image 7">
+
+  <p>Aigle accentuée</p>
+  <img src="https://github.com/TonyDall/Photo_Algo/blob/main/tp2/Partie_0/accentuee_1.jpg?raw=true" alt="Image 8">
+
+    <p>Ici, avec l'image de l'aigle, on peut voir distinctement comment le processus d'accentuation s'effectue à différentes
+      étapes. Les détails sont facilement remarquables, et le résultat final se distingue bien de l'image originale.
+      Pour les deux opérations sur les images, un sigma de 1 a été utilisé pour le filtrage gaussien et un alpha de 1.5
+      a été utilisé pour le mélange des images.</p>
+
+  <h2>Partie 2: Images hybrides</h2>
+  <p>Dans cette section, il fallait créer des images hybrides en appliquant un filtre passe-haut à l'une des images pour
+    conserver son contenu en haute fréquence, et en appliquant un filtre passe-bas à l'autre image pour conserver son
+    contenu en basse fréquence. En superposant les deux images filtrées, on obtenait une image hybride. Lorsqu'on réduit
+    la taille de l'image hybride, on peut observer le contenu fréquentiel en basse fréquence de l'image filtrée, et le
+    même phénomène inverse se produit avec la seconde image contenue dans l'image hybride.<p>
+
+  <p>MaryStein (Hybride Einstein-Marilyn)</p>
+  <img src="https://github.com/TonyDall/Photo_Algo/blob/main/tp2/Partie_1/image/MaryStein.jpg?raw=true" alt="Image 1">
+
+  <p>Chacoon (Hybride chat et raton laveur)</p>
+  <img src="https://github.com/TonyDall/Photo_Algo/blob/main/tp2/Partie_1/image/chacoon.jpg?raw=true" alt="Image 2">
+
+  <p>Le chat utilisé</p>
+  <img src="https://github.com/TonyDall/Photo_Algo/blob/main/tp2/Partie_1/image/chat.jpg?raw=true" alt="Image 3">
+
+  <p>Le raton utilisé</p>
+  <img src="https://github.com/TonyDall/Photo_Algo/blob/main/tp2/Partie_1/image/raton.jpg?raw=true" alt="Image 4">
+  <p>Malheureusement en cours de route les sources de ces deux images on été perdu!</p>
+
+  <p>En observant les deux résultats obtenus, on constate que le meilleur d'entre eux était avec les images déjà fournies
+    de Marilyn et d'Einstein. En effet, la superposition et l'alignement de celles-ci sont mieux faits, et on discerne
+    moins la présence d'une seconde image. Ceci peut s'expliquer simplement par le fait qu'il s'agit de deux êtres humains,
+    alors que le chat et le raton n'ont pas nécessairement les mêmes proportions (malgré avoir pris la peine de bien
+    choisir les images).<p>
+
+  <p>D'autre part, il est intéressant de noter que les fréquences de coupure appliquées aux images sont différentes d'une
+    image à l'autre. Tout d'abord, il a été remarqué qu'il était important de choisir une fréquence de coupure beaucoup
+    moins élevée pour le filtre passe-haut que pour celui passe-bas. Ensuite, ces valeurs de fréquences varient également
+    d'une image à l'autre. En ce qui concerne Einstein et Marilyn, on avait un filtre passe-bas avec un sigma de 25 et un
+    passe-haut avec un sigma de 10. Finalement, pour le chaton, on avait un sigma de 6 pour le filtre passe-haut et 3 pour
+    le passe-bas. Ces valeurs restent très subjectives et dépendent de l'expérimentation et de l'ajustement de l'utilisateur.</p>
+
+  <p>TF Hybride MaryStein</p>
+  <img src="https://github.com/TonyDall/Photo_Algo/blob/main/tp2/Partie_1/image/TF_Hybride.png?raw=true" alt="Image 5">
+
+  <p>TF Einstein</p>
+  <img src="https://github.com/TonyDall/Photo_Algo/blob/main/tp2/Partie_1/image/TF_Einstein.png?raw=true" alt="Image 6">
+
+  <p>TF avec filtre passe-haut Einstein</p>
+  <img src="https://github.com/TonyDall/Photo_Algo/blob/main/tp2/Partie_1/image/TF_Passe_Haut_Einstein.png?raw=true" alt="Image 7">
+
+  <p>TF Marilyn</p>
+  <img src="https://github.com/TonyDall/Photo_Algo/blob/main/tp2/Partie_1/image/TF_Marilyn.png?raw=true" alt="Image 8">
+
+   <p>TF avec filtre passe-bas Marilyn</p>
+  <img src="https://github.com/TonyDall/Photo_Algo/blob/main/tp2/Partie_1/image/TF_Passe_Bas_Marilyn.png?raw=true" alt="Image 9">
+
+
+
+  <p>Dans ces images de transformer de Fourier on remarque que dans l'image TF Hybride il semble bien s'agir de la superposition du
+  contenue en fréquence de l'image de Einstein avec filtre passe-haut et de l'image à filtre passe-bas de Marilyn. Ainsi, lorsqu'on
+  applique un filtre passe-haut on s'attend à conserver les contours net et les variations rapides de luminosité. Lorsqu'on regarde
+  unvisage il y beaucoup de se genre de détail. Par conséquent, l'image de la TF avec filtre haute-fréquence de Einstein nous
+  permet de remarquer ceci par la présence de plusieurs "lignes". </p>
+
+  <p>À l'inverse un filtre passe-bas tant qu'à lui conservera les basse fréquences et lorsqu'on observe un image de TF
+    celles-ci se retrouve autout du centre. On peut effectivement remarqué ceci sur l'image avec filtre de la TF de Marilyn.
+  En bref, le filtre passe-bas contient l'information sur les contours globaux et formes général de l'image de base.</p>
+
+
+  <h2>Partie 2: Pile gaussienne et laplacienne</h2>
+
+  <p>Dans cette section, il était nécessaire de créer une pile gaussienne et laplacienne à partir de l'image de Salvador
+    Dali. Pour ce faire, le lien suivant <a href="https://medium.com/tangibit-studios/an-introduction-to-image-blending-a5c0d83bdabe">CLIC</a>
+    a été très utile pour comprendre et appliquer les opérations à l'image d'origine afin d'obtenir ces piles. En résumé,
+    le principe consiste à partir de l'image d'origine, d'y appliquer un filtre gaussien avec un sigma de 2. Une fois
+    cette image filtrée obtenue, on la soustrait à l'image d'origine et on obtient notre première image dans la pile
+    laplacienne. On réitère cette opération en s'assurant d'utiliser l'image originale et de la filtrer cette fois-ci
+    avec un sigma deux fois supérieur (4) pour la seconde itération. Une fois l'image filtrée obtenue, on la soustrait
+    avec l'image filtrée de l'itération précédente. Il faut faire bien attention à la dernière image laplacienne à placer
+    dans la pile : il faut générer une image filtrée de plus qui ne sera pas dans la pile gaussienne finale.</p>
+
+  <p>Pile gaussienne et laplacienne de Lincoln et Gala</p>
+  <img src="https://github.com/TonyDall/Photo_Algo/blob/main/tp2/Partie_2/image/lincoln_stack.png?raw=true" alt="Image 1">
+
+  <p>Pile gaussienne et laplacienne du Chacoon</p>
+  <img src="https://github.com/TonyDall/Photo_Algo/blob/main/tp2/Partie_2/image/chacoon_stack.png?raw=true" alt="Image 2">
+
+  <p>Ce qui est intéressant de remarquer dans les résultats du Chacoon, par exemple, est que dans la pile de Laplace, on
+    commence initialement avec seulement le raton, et à la fin de la pile, on ne discerne que le chat. Cette pile nous
+    permet de bien voir les composants de l'image d'origine. Ainsi, sur l'image de Salvador Dali, grâce à la pile gaussienne,
+    on parvient à bien voir Lincoln, alors que pour la pile laplacienne, elle nous permet de bien voir la femme
+    (qui est également bien visible dans l'image non filtrée)..</p>
+
+
+  <h2>Partie 3: Mélange multirésolution</h2>
+
+  <p>Dans cette section il fallait prendre deux images afin de les "blend" l'une dans l'autre. Pour se faire, il a fallaire
+  réutiliser la pile laplacienne précédemment fait et ainsi qu'utiliser des masques à filtrer avec un filtre gaussien
+  de différente intensité (le même nombre de filtre que la taille de notre pile laplacienne). Étant donné que le but était
+  d'avoir une image composé à partir de deux images il fallait obtenir la pile laplacienne de chacune d'elle. Ensuite,
+  il fallait une opération qui consistait à prendre une image dans la pile et la multiplier (convoluer) avec le masque
+  correspondant dans la pile. Également pour la seconde image en prennant soins de prendre le filtre inverse (1-filtre).
+  Une fois cette opération effectué pour chacune des images dans la fils et les deux images différentes il suffisait de
+  prendre la pile composition nouvellement créer et de sommer tous les images la composant.</p>
+
+  <p>Pommange</p>
+  <img src="https://github.com/TonyDall/Photo_Algo/blob/main/tp2/Partie_3/Image/Pommange_composee.png?raw=true" alt="Image 1">
+
+  <p>Illustration du procédé de la pommange avec color correction</p>
+  <img src="https://github.com/TonyDall/Photo_Algo/blob/main/tp2/Partie_3/Image/pommange_total_res.png?raw=true" alt="Image 1.1">
+
+   <p>Illustration du procédé de la pommange sans color correction</p>
+  <img src="https://github.com/TonyDall/Photo_Algo/blob/main/tp2/Partie_3/Image/pommange_multiple.png?raw=true" alt="Image 1.2">
+
+  <p> Étant donné que pour la pommange, il était possible de voir le résultat attendu, il fut difficile d'obtenir un résultat
+    qui s'y apparentait. En effet, lorsqu'il était temps de reconstruire l'image composée (en sommant la pile laplacienne),
+    il était toujours possible de voir une démarcation nette entre les deux images au centre. Ainsi, pour pallier à ce
+    problème, il a été observé qu'il était possible d'ajouter un "poids" pour chacune des images composant la pile. Il
+    a donc fallu donner un poids plus important aux images étant beaucoup plus filtrées car celles-ci utilisaient le
+    filtre avec un plus grand dégradé. De plus, il a fallu faire varier beaucoup les valeurs de sigma utilisées pour la
+    création des piles des différentes images, que ce soit la pomme, l'orange ou le masque. Finalement, il était souvent
+    remarqué que la composition finale était beaucoup plus sombre que les images originales. Pour remédier à ce problème,
+    une approche similaire à celle présentée sur PAX a été utilisée. Elle peut être résumée par l'utilisation d'un offset
+    qui est ajouté à l'image finale. Celui-ci est calculé en faisant la moyenne de l'image de base et en calculant la
+    différence avec la moyenne de l'image obtenue après les traitements pour obtenir l'image composée (on peut voir le
+    résultat avec les deux images ci-dessus). En bref, toutes ces opérations ont été effectuées afin d'obtenir une image
+    qui s'approchait de la référence.</p>
+
+  <p>Ciel de jour avec lune de nuit</p>
+  <img src="https://github.com/TonyDall/Photo_Algo/blob/main/tp2/Partie_3/Image/moon_blent_in.png?raw=true" alt="Image 2">
+
+   <p>Ciel pris en ligne <a href="https://cdn.futura-sciences.com/buildsv6/images/largeoriginal/4/7/3/47343047c5_105832_ciel-bleu-01.jpg">ICI</a></p>
+  <img src="https://github.com/TonyDall/Photo_Algo/blob/main/tp2/Partie_3/Image/ciel.jpg?raw=true" alt="Image 3">
+
+   <p>Lune pris en ligne <a href="https://m.espacepourlavie.ca/sites/espacepourlavie.ca/files/phases_lune.jpg">ICI</a></p>
+  <img src="https://github.com/TonyDall/Photo_Algo/blob/main/tp2/Partie_3/Image/phases_lune.jpg?raw=true" alt="Image 4">
+
+  <p>Masque appliqué au ciel et lune</p>
+  <img src="https://github.com/TonyDall/Photo_Algo/blob/main/tp2/Partie_3/Image/mask2_lune.jpg?raw=true" alt="Image 5">
+
+  <p>Illustration du procédé de la lune et le ciel</p>
+  <img src="https://github.com/TonyDall/Photo_Algo/blob/main/tp2/Partie_3/Image/lune_ciel_multiple.png?raw=true" alt="Image 6">
+
+  <p>Comme ces images n'étaient pas de même taille, il a fallu les redimensionner pour qu'elles concordent. Évidemment,
+    il était nécessaire de faire varier les différentes valeurs de sigma pour les filtres gaussiens afin d'obtenir un
+    résultat quelque peu satisfaisant. Il a été intéressant de remarquer qu'en testant différents masques qui dépassaient
+    la taille de la lune ou ne dépassaient pas les limites de la lune, on pouvait obtenir des résultats assez différents
+    qui causaient des résultats décevants.</p>
+
+
+  <p>Image personnel d'un haut-parleur</p>
+  <img src="https://github.com/TonyDall/Photo_Algo/blob/main/tp2/Partie_3/Image/speaker2.jpg?raw=true" alt="Image 6" width="800" height="800">
+  https://github.com/TonyDall/Photo_Algo/blob/main/tp2/Partie_3/Image/speaker2.jpg?raw=true
+
+  <p>Image de mon oeil</p>
+  <img src="https://github.com/TonyDall/Photo_Algo/blob/main/tp2/Partie_3/Image/oeil2.jpg?raw=true" alt="Image 6" width="800" height="800">
+  https://github.com/TonyDall/Photo_Algo/blob/main/tp2/Partie_3/Image/speaker2.jpg?raw=true
+
+   <p>Masque appliqué aux images de mon oeil et du haut-parleur</p>
+  <img src="https://github.com/TonyDall/Photo_Algo/blob/main/tp2/Partie_3/Image/mask_oeil2.jpg?raw=true" alt="Image 6" width="800" height="800">
+
+  <p>SpeakOeil</p>
+  <img src="https://github.com/TonyDall/Photo_Algo/blob/main/tp2/Partie_3/Image/speakoeil.png?raw=true" alt="Image 6">
+
+  <p>Illustration du procédé pour obtenir le speakoeil</p>
+  <img src="https://github.com/TonyDall/Photo_Algo/blob/main/tp2/Partie_3/Image/speakoeil_multiple.png?raw=true" alt="Image 6">
+
+  <p> Il est difficile d'obtenir un résultat satisfaisant à partir des photos prises sur nos téléphones portables. En
+    effet, la qualité d'image est tellement grande qu'il faut obligatoirement réduire leur taille si on veut être en mesure
+    d'avoir un temps d'exécution qui n'est pas trop grand. De plus, les images de grande qualité, comme celles-ci, semblent
+    être plus difficiles à composer ensemble lorsqu'elles n'ont pas de couleur. Il aurait été nécessaire de tester avec
+    beaucoup plus de valeurs différentes pour les sigmas des filtres et des images, ainsi que pour le poids qui leur est
+    accordé lors de la composition finale.</p>
+
+  <p>Anthony Dallaire <br> Université Laval<br>14 Février 2024</p>
+
+</body>

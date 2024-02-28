@@ -1,95 +1,71 @@
 <head>
-<title>TP1: Coloration de l'Empire Russe</title>
+<title>TP2: On s'amuse en fréquences</title>
 <!-- Ceci est un commentaire -->
 <!-- La ligne ci-dessous vous permettra d'écrire votre texte avec des accents français -->
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 </head>
 <body>
-  <h1>TP1: Coloration de l'Empire Russe</h1>
-  <h2>Approche à une seule échelle</h2>
-  <p>Afin d'obtenir des images en couleurs à partir de la banque d'image de Prokudin-Gorskii il a fallu développer un algorithme </p>
-  </p>d'alighement. Par la suite, il suffisait d'évaluer à partir d'un score si l'alignement était bon dans une plage de "vérification". </p>
-  </p>Celle-ci était d'une taille de 15x15 pixel dans les deux axes. Voici les résultats obtenues avec les images jpeg de plus petite taille.</p>
+  <h1>TP2: On s'amuse en fréquences</h1>
+  <h2>Partie 0: Réchauffement</h2>
+  <p>Dans cette première partie il fallait simplement accentué deux images de notre choix. La technique reste relativement
+  simple. Elle consiste à prendre une image et de lui appliquer un filtre gaussien passe-haut pour ensuite venir soustraire à
+  l'image original le filtre pour obtenir les "détails". Une fois ces détails obtenues on venait y mettre un facteur modulable
+  et on y additionnait l'image d'origine pour enfin obtenir l'image accentuée!</p>
 
-  <p>Image 00106v</p>
-  <img src="https://github.com/TonyDall/Photo_Algo/blob/main/image_low_res/00106v_res.jpg?raw=true" alt="Image 1">
+  <p>Image Original "Drake"</p>
+  <img src="https://github.com/TonyDall/Photo_Algo/blob/main/tp2/Partie_0/Drake.jpg?raw=true" alt="Image 1">
 
-  <p>Image 00757v</p>
-  <img src="https://github.com/TonyDall/Photo_Algo/blob/main/image_low_res/00757v_res.jpg?raw=true" alt="Image 2">
+  <p>Drake avec filtre gaussien</p>
+  <img src="https://github.com/TonyDall/Photo_Algo/blob/main/tp2/Partie_0/filtree_2.jpg?raw=true" alt="Image 2">
 
-  <p>Image 00889v</p>
-  <img src="https://github.com/TonyDall/Photo_Algo/blob/main/image_low_res/00889v_res.jpg?raw=true" alt="Image 3">
+  <p>Détail de Drake</p>
+  <img src="https://github.com/TonyDall/Photo_Algo/blob/main/tp2/Partie_0/detail_2.jpg?raw=true" alt="Image 3">
 
-  <p>Image 00907v</p>
-  <img src="https://github.com/TonyDall/Photo_Algo/blob/main/image_low_res/00907v_res.jpg?raw=true" alt="Image 4">
+  <p>Drake accentuée</p>
+  <img src="https://github.com/TonyDall/Photo_Algo/blob/main/tp2/Partie_0/accentuee_2.jpg?raw=true" alt="Image 4">
 
-  <p>Image 00911v</p>
-  <img src="https://github.com/TonyDall/Photo_Algo/blob/main/image_low_res/00911v_res.jpg?raw=true" alt="Image 5">
+  <p>Dans cette suite d'image de drake il est intéressant de remarquer que l'image d'origine a un du grain (bruit). Ainsi, lorsqu'on applique
+  le filtre gaussien on se retrouve à diminuer leurs présences. Par conséquent, lorsqu'on récupère les détails et qu'on y accentue l'image original
+  ce bruit se retrouve beaucoup plus conséquent visuellement.</p>
 
-  <p>Image 01657v</p>
-  <img src="https://github.com/TonyDall/Photo_Algo/blob/main/image_low_res/01657v_res.jpg?raw=true" alt="Image 6">
+  <p>Aigle ou pygargue à tête blanche?</p>
+  <img src="https://github.com/TonyDall/Photo_Algo/blob/main/tp2/Partie_0/eagle.jpg?raw=true" alt="Image 5">
 
-  <p> </p>
-    <table border="1">
-  <tr>
-    <td> Image JPG
-    <td> Green on Blue
-    <td> Red on Blue
-  <tr>
-  </tr>
-    <td> 00106v
-    <td> (1, 4)
-    <td> (-1,9)
-  <tr>
-  </tr>
-    <td> 00757v
-    <td> (3, 2)
-    <td> (5, 5)
-  <tr>
-  </tr>
-    <td> 00889v
-    <td> (2, 2)
-    <td> (3, 4)
-  <tr>
-  </tr>
-    <td> 00907v
-    <td> (0, 2)
-    <td> (0, 6)
-  <tr>
-  </tr>
-    <td> 00911v
-    <td> (-1, 1)
-    <td> (-1, 13)
-  <tr>
-  </tr>
-    <td> 01657v
-    <td> (1, 5)
-    <td> (1, 12)
-  <tr>
-  </tr>
-  </table>
+  <p>Aigle avec filtre gaussien</p>
+  <img src="https://github.com/TonyDall/Photo_Algo/blob/main/tp2/Partie_0/filtree_1.jpg?raw=true" alt="Image 6">
 
-  <h2>Approche à échelles multiples</h2>
-  <p>Avec cette approche, il devenait possible de traiter des images de plus grande taille sans devoir augmenté significativement le temps<p>
-  <p>d'exécution pour obtenir un résultat satisfaisant. Ainsi, cette approche consistait à prendre l'image original et la réduire par deux<p>
-  <p>la taille de l'image. Tout d'abord, on commencait le traitement sur la plus petite taille d'image et on grossissait à chaque itération<p>
-  <p>de la fonction align tout en s'assurant d'effectuer la recherche à partir du point précédemment découvert avec l'image de plus petite<p>
-  <p>dimension. De plus, il fallait s'assurer de toujours multiplier par deux la position découvert à l'itération précédente de la fonction<p>
-  <p>align et repartir de là. Au total, il était conseillé de seulement faire 3 itérations (taille initial de recherche = 1/8).</p>
-  <p>Voici les résultats obtenus avec les différentes images fournies:</p>
+   <p>Détail de l'aigle</p>
+  <img src="https://github.com/TonyDall/Photo_Algo/blob/main/tp2/Partie_0/detail_1.jpg?raw=true" alt="Image 7">
 
+  <p>Aigle accentuée</p>
+  <img src="https://github.com/TonyDall/Photo_Algo/blob/main/tp2/Partie_0/accentuee_1.jpg?raw=true" alt="Image 8">
 
-  <p>Image 00029u</p>
-  <img src="https://github.com/TonyDall/Photo_Algo/blob/main/image_high_res/00029u_res.jpg?raw=true" alt="Image 1" width="1000" height="1000">
+    <p>Ici, avec l'image de l'aigle, on peut voir distinctement comment le processus d'accentuation s'effectue à différentes
+      étapes. Les détails sont facilement remarquables, et le résultat final se distingue bien de l'image originale.
+      Pour les deux opérations sur les images, un sigma de 1 a été utilisé pour le filtrage gaussien et un alpha de 1.5
+      a été utilisé pour le mélange des images.</p>
 
-  <p>Image 00087u</p>
-  <img src="https://github.com/TonyDall/Photo_Algo/blob/main/image_high_res/00087u_res.jpg?raw=true" alt="Image 2" width="1000" height="1000">
+  <h2>Partie 2: Images hybrides</h2>
+  <p>Dans cette section, il fallait créer des images hybrides en appliquant un filtre passe-haut à l'une des images pour
+    conserver son contenu en haute fréquence, et en appliquant un filtre passe-bas à l'autre image pour conserver son
+    contenu en basse fréquence. En superposant les deux images filtrées, on obtenait une image hybride. Lorsqu'on réduit
+    la taille de l'image hybride, on peut observer le contenu fréquentiel en basse fréquence de l'image filtrée, et le
+    même phénomène inverse se produit avec la seconde image contenue dans l'image hybride.<p>
 
-  <p>Image 00458u</p>
-  <img src="https://github.com/TonyDall/Photo_Algo/blob/main/image_high_res/00458u_res.jpg?raw=true" alt="Image 3" width="1000" height="1000">
+  <p>MaryStein (Hybride Einstein-Marilyn)</p>
+  <img src="https://github.com/TonyDall/Photo_Algo/blob/main/tp2/Partie_1/image/MaryStein.jpg?raw=true" alt="Image 1" width="1000" height="1000">
 
-  <p>Image 0082u</p>
-  <img src="https://github.com/TonyDall/Photo_Algo/blob/main/image_high_res/00822u_res.jpg?raw=true" alt="Image 4" width="1000" height="1000">
+  <p>Chacoon (Hybride chat et raton laveur)</p>
+  <img src="https://github.com/TonyDall/Photo_Algo/blob/main/tp2/Partie_1/image/chacoon.jpg?raw=true" alt="Image 3" width="1000" height="1000">
+
+  <p>Le chat utilisé</p>
+  <img src="https://github.com/TonyDall/Photo_Algo/blob/main/tp2/Partie_1/image/chat.jpg?raw=true" alt="Image 2" width="1000" height="1000">
+
+  <p>Le raton utilisé</p>
+  <img src="https://github.com/TonyDall/Photo_Algo/blob/main/tp2/Partie_1/image/raton.jpg?raw=true" alt="Image 4" width="1000" height="1000">
+  <p>Malheureusement en cours de route les sources de ces deux images on été perdu!</p>
+
+  <p>En observant les deux résultats obtenues on constate que le meilleur d'entre eux était avec les images déj</p>
 
   <p>Image 01043u</p>
   <img src="https://github.com/TonyDall/Photo_Algo/blob/main/image_high_res/01043u_res.jpg?raw=true" alt="Image 5" width="1000" height="1000">

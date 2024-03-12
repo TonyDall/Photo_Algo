@@ -75,21 +75,21 @@ def calculerHomographie(im1_pts, im2_pts):
     return H / H[2, 2]
 
 #Charger les images
-im1 = imread('./images/1-PartieManuelle/Serie3/IMG_2409.JPG')
+im1 = imread('./images/1-PartieManuelle/Serie1/IMG_2415.JPG')
 im1 = skimage.util.img_as_float(im1)
 
-im2 = imread('./images/1-PartieManuelle/Serie3/IMG_2410.JPG')
+im2 = imread('./images/1-PartieManuelle/Serie1/IMG_2416.JPG')
 im2 = skimage.util.img_as_float(im2)
 
-im3 = imread('./images/1-PartieManuelle/Serie3/IMG_2411.JPG')
+im3 = imread('./images/1-PartieManuelle/Serie1/IMG_2417.JPG')
 im3 = skimage.util.img_as_float(im3)
 
 #Charger les points des fichiers text
-pts12 = np.loadtxt('./images/1-PartieManuelle/Serie3/pts12_2409.txt', delimiter='\t', usecols=(1,2))
-pts21 = np.loadtxt('./images/1-PartieManuelle/Serie3/pts21_2410.txt', delimiter='\t', usecols=(1,2))
+pts12 = np.loadtxt('./images/1-PartieManuelle/Serie1/pts_serie1/pts1_12.txt', delimiter=',')
+pts21 = np.loadtxt('./images/1-PartieManuelle/Serie1/pts_serie1/pts2_12.txt', delimiter=',')
 
-pts23 = np.loadtxt('./images/1-PartieManuelle/Serie3/pts23_2410.txt', delimiter='\t', usecols=(1,2))
-pts32 = np.loadtxt('./images/1-PartieManuelle/Serie3/pts32_2411.txt', delimiter='\t', usecols=(1,2))
+pts23 = np.loadtxt('./images/1-PartieManuelle/Serie1/pts_serie1/pts2_32.txt', delimiter=',')
+pts32 = np.loadtxt('./images/1-PartieManuelle/Serie1/pts_serie1/pts3_32.txt', delimiter=',')
 
 # plt.imshow(im2)
 # plt.axis('off')
@@ -104,7 +104,7 @@ H = calculerHomographie(pts12[:4], pts21[:4])
 im1T, minmax = appliqueTransformation(im1, H)
 
 #On prend les points de 4 à 8 car les résultats donnes ce qui est attendu
-H3 = calculerHomographie(pts32[:4], pts23[:4])
+H3 = calculerHomographie(pts32[4:8], pts23[4:8])
 im3T, minmax_3 = appliqueTransformation(im3, H3)
 
 # Appliquer la transformation à la deuxième image pour les superposer
@@ -115,18 +115,16 @@ ty = abs(minmax[2])
 tx2 = abs(minmax_3[3])
 ty2 = abs(minmax_3[2])
 
-print(minmax, minmax_3)
 #Matrice pour translation
-Htr2 = np.array([[1, 0, -tx], [0, 1, -ty2], [0, 0, 1]])
-Htr3 = np.array([[1, 0, (-tx2 - tx)], [0, 1, 0], [0, 0, 1]])
-Htr1 = np.array([[1, 0, 0], [0, 1, -(ty2-ty)], [0, 0, 1]])
+Htr2 = np.array([[1, 0, -tx], [0, 1, -ty], [0, 0, 1]])
+Htr3 = np.array([[1, 0, (-tx2 - tx)], [0, 1, -abs(ty2 - ty)], [0, 0, 1]])
 
 # Superposer les deux images en utilisant la moyenne des pixels
 mosaic_heigt = max([im1T.shape[0], im3T.shape[0], result2.shape[0]])
-mosaic_width = abs(minmax[1]) + abs(minmax_3[1]) + minmax_3[2]
+mosaic_width = abs(minmax[3]) + abs(minmax_3[3]) + result2.shape[1]
 mosaic = np.zeros((mosaic_heigt, mosaic_width, result2.shape[2]))
 
-test1 = skt.warp(im1T, Htr1, output_shape=mosaic.shape)
+test1 = skt.warp(im1T, np.eye(3), output_shape=mosaic.shape) #reshape l'image
 test2 = skt.warp(im2, Htr2, output_shape=mosaic.shape)
 test3 = skt.warp(im3T, Htr3, output_shape=mosaic.shape)
 
@@ -135,7 +133,7 @@ for x in range(mosaic.shape[1]):
     for y in range(mosaic.shape[0]):
         for z in range(3):
             # mosaic[y, x, z] = max(test1[y, x, z], test2[y, x, z], test3[y, x, z])
-            if test1[y, x, z] != 0 and test2[y, x, z] != 0 and test3[y, x, z] != 0:
+            if test1[y, x, z] != 0 and test2[y, x, z]!= 0 and test3[y, x, z] != 0:
                 mosaic[y, x, z] = (test1[y, x, z] + test2[y, x, z] + test3[y, x, z])/3
             elif test1[y, x, z] != 0 and test2[y, x, z] != 0 and test3[y, x, z] == 0:
                 mosaic[y, x, z] = (test1[y, x, z] + test2[y, x, z]) / 2
@@ -147,6 +145,17 @@ for x in range(mosaic.shape[1]):
                 mosaic[y, x, z] = test2[y, x, z]
             elif test1[y, x, z] == 0 and test2[y, x, z] == 0 and test3[y, x, z] != 0:
                 mosaic[y, x, z] = test3[y, x, z]
+
+# shenanigans pour avoir la mosaique (trop compliqué)
+# for x in range(mosaic.shape[1]):
+#     for y in range(mosaic.shape[0]):
+#         if x < tx and y < im1T.shape[0]:
+#             mosaic[y, x] = im1T[y, x]
+#         elif tx <= x <= (tx2 + tx) + 20 and y > ty and y < (im2.shape[0] + ty):
+#             mosaic[y, x] = np.maximum.reduce([im2[y - ty, x - tx], im1T[y, x]])
+#             mosaic[y, x] = im2[y - ty, x - tx]
+#         elif x > (tx2 + tx) + 20 and y < im3T.shape[0] - abs(ty2-ty) and y > abs(ty-ty2):
+#             mosaic[y + abs(ty2-ty), x] = im3T[y, x - (tx2 + tx)]
 
 plt.imshow(mosaic)
 
@@ -165,6 +174,6 @@ plt.axis('off')
 plt.title('Tete')
 plt.show()
 
-fname = './images/resultat/serie3_panorama_moyenne.jpg'
+fname = './images/resultat/serie1_panorama_moyenne.jpg'
 img_RGB_ubyte = sk.util.img_as_ubyte(mosaic)
 skio.imsave(fname, img_RGB_ubyte)

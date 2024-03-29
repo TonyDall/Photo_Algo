@@ -1,0 +1,90 @@
+<head>
+<title>TP4b: Panoramas automatiques</title>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+</head>
+<body>
+  <h1>TP4b: Panoramas automatiques</h1>
+
+  <h2>Partie 1: Appariement automatique avec 3 groupes d'images</h2>
+
+  <p>Étant donné un manque de temps considérable causé par de multiples remises en simultané il aura été impossible d'arriver
+  à un résultat complètement fonctionnel et satisfaisant. Par contre, il a été possible d'obtenir l'algorithme d'appariement des points
+  et celui-ci semble bien fonctionner et permettre d'obtenir des transformations approprié pour deux images. L'un des problèmes rencontré
+  est le fait que les points choisis pour effectuer la matrice de transformation finale ne sont pas toujours les mêmes. Ceci pourrait
+  s'expliquer par l'utilisation de ransac qui s'assure de trouver les meilleurs appariement aléatoire. Conséquemment il y a peut-être
+  plusieurs solution possible qui permettrait d'arriver au même résultat. Ensuite, selon moi le principale problème était la détection
+  de coin dans le ciel par l'algorithme de harris. En effet, il est contre intuitif et clairement invalide de considérer qu'il y avait
+  des coins dans les endroits de l'image qui représente le ciel bleu et claire. Par conséquence, aucune approche n'a été fait dans mon
+  code pour éviter ces problèmes si ce n'est les tresholds utilisés dans les algorithmes qui vont automatiquement rejeter ces points abérant.
+  D'autre part, l'un des potentiels problèmes de ces algorithme est également l'identification de coins sur des parties de l'images qui
+  correspondent à des objets qui bougent où même la nature. Par exemple, sur les images de ponts il semblait il y avoir un coin
+  dans l'eau souvent utilisé qui était un bateau.</p>
+  <video width="360" height="360" controls>
+    <source src="https://github.com/TonyDall/Photo_Algo/raw/main/tp3/remise/deforme.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>  <video width="360" height="360" controls>
+    <source src="https://github.com/TonyDall/Photo_Algo/raw/main/tp3/remise/trace.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+    <p>Mon code peut se diviser en 4 principales parties. Tout d'abord, on retrouve le script Harris.py fournit qui permettait
+    d'obtenir une liste de coins présents dans les images. Après avoir obtenue ces points, la fonction get_matches est appelé
+    de façon récursive afin d'obtenir une liste de couple de points possible entre les deux images concernés. Dans cette fonction,
+    on retrouve aussi l'appel de l'approche mops proposé dans l'article qui consiste à obtenir les descripteurs associé à
+    chaque coins de chaque images. Les descripteurs correspondait à une fenêtre de 40x40 sous samplé de s=5 afin d'avoir une taille
+    de 8x8 et ensuite elle était normalisé avant d'y appliqué le transformé de Haar. Quand les descripteurs étaientt obtenues
+    l'association des descripteurs les plus probable des similaires était fait. Une fois cette liste de "matches" possible obtenue,
+    on applique la fonction ransac qui consistait à simplement essayer pleins de possibilité dans un ordre aléatoire et de
+    seulement garder le meilleur résultat. Finalement, on se retrouvait avec seulement 4 pairs de points qui allait permettre
+    de calculer l'homographie à l'aide des fonctions fait à la partie A du tp. Étant donné, qu'il y avait plus de 3 images pour
+    construire le panorama il m'a été impossible d'arriver à une approche pour recontruire le résultat finals du panorama.</p>
+
+ <h4>Résultat final obtenue</h4>
+  <video width="720" height="720" controls>
+    <source src="https://github.com/TonyDall/Photo_Algo/raw/main/tp3/remise/rendu1.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+
+  <h2>Partie 2: Métamorphose d'animal </h2>
+    <video width="720" height="720" controls>
+    <source src="https://github.com/TonyDall/Photo_Algo/raw/main/tp3/remise/rendu2.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+
+  <p>Le résultat obtenue est très satisfaisant. D'autant plus que le nombre de points utilisé pour faire la triangulation
+  était moindre que sur les visages humains. Ainsi, il est possible d'observer les points de références utilisé pour la
+  triangulation dans l'image ci-dessous:</p>
+
+  <h4>Image des points sur le renard</h4>
+  <img src="https://github.com/TonyDall/Photo_Algo/blob/main/tp3/remise/pts_renard.png?raw=true" alt="Image 6" width="720" height="720">
+
+
+  <h2>Partie 3: Métamorphose avec photo personnel</h2>
+  <video width="720" height="720" controls>
+    <source src="https://github.com/TonyDall/Photo_Algo/raw/main/tp3/remise/rendu3.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+
+  <p>Cette métamorphose représente le résultat le moins bien réussi parmi les différents. En effet, lors de la transition
+  on remarque toujours la présence de la sphère d'un image à l'autre. Ceci s'explique probablement du fait que l'on a
+  une image avec un contour bien définie (la boule) et l'autre avec un coutour beaucoup moins bien définie du fait
+  de la présence de multiple feuilles de la plante. Par conséquent, même si les deux objets semblait avoir une forme
+  assez sphérique on obtenait une résultat qui n'était pas des plus fluides. Dans les images qui suit, on peut voir
+  les différents points pris le tours des deux objets:</p>
+
+  <h4>Points utilisé sur les deux images personnels</h4>
+  <img src="https://github.com/TonyDall/Photo_Algo/blob/main/tp3/remise/pts_plante.png?raw=true" alt="Image 6" width="360" height="360">
+  <img src="https://github.com/TonyDall/Photo_Algo/blob/main/tp3/remise/pts_sphere.png?raw=true" alt="Image 6" width="360" height="360">
+
+  <h4>Métamorphose d'une tranche de pain en toast au beurre de peanut</h4>
+  <video width="720" height="720" controls>
+    <source src="https://github.com/TonyDall/Photo_Algo/raw/main/tp3/remise/rendu4.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+  <p> Ici, le but était de prendre un aliments avant sa transformation pour observer un résultat des plus fluide
+  possible. Ainsi, les points pris sont au même endroit sur la tranche de pains dans les deux images.</p>
+
+
+
+  <p>Anthony Dallaire <br> Université Laval<br>28 Février 2024</p>
+
+</body>

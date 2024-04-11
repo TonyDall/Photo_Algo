@@ -1,0 +1,57 @@
+<head>
+<title>TP5: Mélanger le réel au virtuel</title>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+</head>
+<body>
+  <h1>TP5: Mélanger le réel au virtuel</h1>
+
+  <h2>Présentation du travail</h2>
+
+  <p> Le monde réel possède une plage dynamique très élevée. Cependant, les photos prises par les appareils photo modernes
+      ne peuvent souvent capturer qu'une petite partie de cette plage, ce qui entraîne généralement une surexposition ou
+      une sous-exposition pour les scènes à plage dynamique élevée. La solution à ce problème consiste d'abord à prendre
+      plusieurs images de la même scène avec des temps d'exposition différents. Avec ces images, une correspondance entre
+      chaque valeur de pixel et une radicane spécifique peut être établie, ce qui donne une 'carte de radiances'. Une fois
+      la carte de radiances obtenue, plusieurs méthodes peuvent être appliquées pour comprimer la carte de radiances dans
+      une plage affichable.</p>
+
+  <h2>Partie 1: Capturer plusieurs expositions d'une sphère métallique</h2>
+
+  <p>Ensuite, selon moi, le principal problème était la détection de coins dans le ciel par l'algorithme de Harris. En
+      effet, il est contre-intuitif et clairement invalide de considérer qu'il y avait des coins dans les parties de
+      l'image qui représentent le ciel bleu et clair. Par conséquent, aucune approche n'a été faite dans mon code pour
+      éviter ces problèmes, si ce n'est les seuils utilisés dans les algorithmes qui vont automatiquement rejeter ces
+      points aberrants.</p>
+  <p>D'autre part, l'un des potentiels problèmes de ces algorithmes est également l'identification de coins sur des
+      parties de l'image qui correspondent à des objets en mouvement ou même à la nature. Par exemple, sur les images
+      de ponts, il semblait y avoir un coin dans l'eau souvent identifié comme un bateau.</p>
+
+ <h4>Les points rouge sur cette image représente les coins utilisé dessus et en bleu ceux sur la seconde image.</h4>
+  <img src="https://github.com/TonyDall/Photo_Algo/blob/master/images/resultat/pts_im01.png?raw=true" alt="Image 1" width="1500" height="720">
+
+  <h4>Les points bleu sur cette image représente les coins utilisé dessus et en rouge ceux de la première image.</h4>
+  <img src="https://github.com/TonyDall/Photo_Algo/blob/master/images/resultat/pts_im10.png?raw=true" alt="Image 2" width="1500" height="720">
+
+  <h4>Homographie appliqué à la première image en utilisant les 4 pairs de points présenté</h4>
+  <img src="https://github.com/TonyDall/Photo_Algo/blob/master/images/resultat/tr_im0.jpg?raw=true" alt="Image 3" width="720" height="720">
+
+
+    <p>Mon code peut être divisé en 4 principales parties. Tout d'abord, on retrouve le script Harris.py fourni qui permet
+        d'obtenir une liste de coins présents dans les images. Après avoir obtenu ces points, la fonction get_matches est
+        appelée de façon récursive afin d'obtenir une liste de couples de points possibles entre les deux images concernées.
+        Dans cette fonction, on retrouve aussi l'appel de l'approche MOPS proposée dans l'article, qui consiste à obtenir
+        les descripteurs associés à chaque coin de chaque image. Les descripteurs correspondaient à une fenêtre de 40x40
+        sous-échantillonnée de s=5 afin d'avoir une taille de 8x8. Ensuite, ils étaient normalisés avant d'y appliquer la
+        transformée de Haar. Une fois les descripteurs obtenus, l'association des descripteurs les plus probables des
+        similaires était faite. Une fois cette liste de "matches" possibles obtenue, on applique la fonction RANSAC, qui
+        consistait à simplement essayer de nombreuses possibilités dans un ordre aléatoire et de seulement garder le meilleur
+        résultat. Finalement, on se retrouve avec seulement 4 paires de points qui permettront de calculer l'homographie
+        à l'aide des fonctions réalisées dans la partie A du TP. Étant donné qu'il y avait plus de 3 images pour construire
+        le panorama, il m'a été impossible d'arriver à une approche pour reconstruire le résultat final du panorama.</p>
+
+
+
+
+  <p>Anthony Dallaire <br> Université Laval<br>29 Mars 2024</p>
+
+</body>
